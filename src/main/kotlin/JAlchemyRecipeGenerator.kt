@@ -22,8 +22,8 @@ object JAlchemyRecipeGenerator : KotlinPlugin(
     override fun onEnable() {
         GlobalEventChannel.parentScope(this).subscribeAlways<MessageEvent> {
             val msg = message.content
-            if (msg.startsWith("/chaos ")) {
-                val seedStr = msg.removePrefix("/chaos ").trim()
+            if (msg.startsWith("chaos ")) {
+                val seedStr = msg.removePrefix("chaos ").trim()
                 var seed = seedStr.toLongOrNull()
                 if (seed == null) {
                     seed = seedStr.hashCode().toLong()
@@ -65,8 +65,8 @@ object JAlchemyRecipeGenerator : KotlinPlugin(
 
     private val catalysts = arrayOf(
         Catalyst("火成催化剂",   arrayOf("安山岩", "闪长岩", "花岗岩", "圆石", "玄武岩", "辉长岩")),
-        Catalyst("草本催化剂",   arrayOf("绯红", "橙色", "下界", "黑曜石", "蓝色", "品红色")),
-        Catalyst("不稳定催化剂", arrayOf("烈焰", "史莱姆", "花岗岩", "圆石", "火药", "海晶")),
+        Catalyst("草本催化剂",   arrayOf("绯红", "橙色", "黄色", "绿色", "蓝色", "品红色")),
+        Catalyst("不稳定催化剂", arrayOf("烈焰", "史莱姆", "下界", "黑曜石", "火药", "海晶")),
         Catalyst("晶化催化剂",   arrayOf("神秘", "磷灰石", "硫磺", "硝石", "赛特斯石英", "下界石英")),
         Catalyst("金属催化剂",   arrayOf("锌", "铜", "铁", "镍", "铅", "金")),
         Catalyst("宝石催化剂",   arrayOf("朱砂", "青金石", "蓝宝石", "绿宝石", "红宝石", "钻石")),
