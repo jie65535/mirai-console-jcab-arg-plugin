@@ -1,5 +1,8 @@
 package top.jie65535
 
+import Transmutation
+import Silicon
+import Silver
 import net.mamoe.mirai.console.plugin.jvm.JvmPluginDescription
 import net.mamoe.mirai.console.plugin.jvm.KotlinPlugin
 import net.mamoe.mirai.event.GlobalEventChannel
@@ -38,6 +41,7 @@ object JAlchemyRecipeGenerator : KotlinPlugin(
     private fun gen(seed: Long): String {
         val random = Random(seed)
         val sb = StringBuilder()
+        val transmutation = Transmutation(seed)
         for (catalyst in catalysts) {
             sb.append(catalyst.name).append(" : ")
             for (i in 1..4)
@@ -60,6 +64,9 @@ object JAlchemyRecipeGenerator : KotlinPlugin(
 //                }
 //                sb.appendLine(']')
         }
+        // 硅
+        sb.append("硅反应物：混沌催化剂 + ${transmutation.transmuted(Silicon).name}反应物\n")
+        sb.append("银反应物：混沌催化剂 + ${transmutation.transmuted(Silver).name}反应物")
         return sb.toString()
     }
 
@@ -72,4 +79,10 @@ object JAlchemyRecipeGenerator : KotlinPlugin(
         Catalyst("宝石催化剂",   arrayOf("朱砂", "青金石", "蓝宝石", "绿宝石", "红宝石", "钻石")),
         Catalyst("混沌催化剂",   arrayOf("火成催化剂", "草本催化剂", "不稳定催化剂", "晶化催化剂", "金属催化剂", "宝石催化剂")),
     )
+
+    /**
+     * 反应物
+     */
+    val reagents = catalysts.filter { it.name != "混沌催化剂" }
+        .flatMap { it.materials.asIterable() }
 }
